@@ -140,6 +140,23 @@ void led_signal() {
     }
 }
 
+void btn_init() {
+#if defined(BTN_PIN)
+    // Set pin to input mode
+    PORT->Group[BTN_PIN / 32].PINCFG[BTN_PIN - (BTN_PIN / 32) * 32].reg=(uint8_t)(PORT_PINCFG_INEN) ;
+    PORT->Group[BTN_PIN / 32].DIRCLR.reg = (uint32_t)(1<<(BTN_PIN - (BTN_PIN / 32) * 32)) ;
+#endif
+}
+
+uint8_t btn_state() {
+    if ( (PORT->Group[BTN_PIN / 32].IN.reg & (1ul << (BTN_PIN - (BTN_PIN / 32) * 32))) != 0 )
+    {
+        return 1 ;
+    }
+
+    return 0 ;
+}
+
 void led_init() {
 #if defined(LED_PIN)
     PINOP(LED_PIN, DIRSET);

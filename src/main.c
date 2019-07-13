@@ -106,6 +106,11 @@ static void check_start_application(void) {
         return;
     }
 
+    if(!btn_state()) {
+        /* Stay in bootloader */
+        return;
+    }
+
 #if USE_SINGLE_RESET
     if (SINGLE_RESET()) {
         if (RESET_CONTROLLER->RCAUSE.bit.POR || *DBL_TAP_PTR != DBL_TAP_MAGIC_QUICK_BOOT) {
@@ -165,6 +170,11 @@ int main(void) {
     delay(15);
 #endif
     led_init();
+    
+#ifdef BTN_PIN
+    btn_init();
+#endif
+
 
     logmsg("Start");
     assert((uint32_t)&_etext < APP_START_ADDRESS);
