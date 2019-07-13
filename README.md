@@ -6,6 +6,23 @@ the USB MSC (mass storage).
 
 [![Build Status](https://travis-ci.org/Microsoft/uf2-samd21.svg?branch=master)](https://travis-ci.org/Microsoft/uf2-samd21)
 
+## To flash the Altrac AMB
+
+1. Plugin the ATMEL SAM-ICE to computer and to AMB
+2. Run the following command
+```
+make r
+```
+3. Check the logs you should see `** Verified OK **`
+4. You will also likely see the following error, which can be ignored:
+```
+sleep 5
+node scripts/dbgtool.js build/amb/bootloader-amb-v3.7.0-2-gfdd9188-dirty.map
+File: build/amb/bootloader-amb-v3.7.0-2-gfdd9188-dirty.map
+Fatal error: Cannot find logStoreUF2 symbol in map file
+make: *** [logs] Error 1
+```
+
 ## UF2
 
 **UF2 (USB Flashing Format)** is a name of a file format, developed by Microsoft, that is particularly
